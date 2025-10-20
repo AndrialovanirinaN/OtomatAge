@@ -51,8 +51,6 @@ The application requires:
   │   └── model_age.RData
   ├── data/
   │   └── img_app/
-  ├── data/
-  │   └── basic_model.R
   │       └── [otolith images]
   └── www/
       ├── logo/
