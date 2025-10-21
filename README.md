@@ -1,168 +1,262 @@
-# OTOmatAGE – Estimating Fish Age from Otoliths
+# 🐟 OTOmatAGE – AI-Powered Fish Age Estimation from Otoliths
 
-Welcome to **OTOmatAGE**, an interactive R Shiny application designed to help 
-you discover the fascinating world of fish otoliths and learn how marine 
-biologists determine the age of fish using artificial intelligence.
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![R](https://img.shields.io/badge/R-%3E%3D4.0-blue.svg)](https://www.r-project.org/)
+[![Shiny](https://img.shields.io/badge/Shiny-App-brightgreen.svg)](https://shiny.rstudio.com/)
+
+Welcome to **OTOmatAGE**, an interactive R Shiny application designed to help you discover the fascinating world of fish otoliths and learn how marine biologists determine the age of fish using artificial intelligence.
+
+---
 
 ## 🌊 About the Project
 
-Otoliths are small bones located in the inner ear of fish that act as natural 
-biological recorders. Each year, a new layer is deposited, similar to tree rings. 
-By studying these layers, scientists can estimate a fish's age and monitor population health.
+**Otoliths** are small calcified structures located in the inner ear of fish that act as natural biological recorders. Each year, a new growth layer is deposited, similar to tree rings. By studying these annual rings, scientists can estimate a fish's age and monitor population health.
 
-This application focuses on the **European plaice** (*Pleuronectes platessa*), 
-a common flatfish species. Using machine learning, **OTOmatAGE** automatically 
-predicts the age of plaice from otolith images, providing an educational and 
-interactive way to explore marine biology research.
+This application focuses on the **European plaice** (*Pleuronectes platessa*), a common flatfish species in the North Sea and English Channel. Using machine learning, **OTOmatAGE** automatically predicts the age of plaice from otolith images, providing an educational and interactive way to explore marine biology research.
+
+---
 
 ## ✨ Key Features
 
-- 🔬 **Interactive otolith viewer** – Examine high-resolution images of plaice otoliths
-- 🧠 **AI-powered age estimation** – Compare your predictions with a K-Nearest Neighbors (KNN) model
-- 🎯 **Educational game** – Test your skills against the AI and discover the real age
-- 📚 **Scientific content** – Learn about otoliths, plaice, and why age determination matters
-- 🎨 **Modern responsive design** – Built with bslib for a sleek, mobile-friendly interface
+- **🔬 Interactive Otolith Viewer**: Examine high-resolution images of plaice otoliths
+- **🧠 AI-Powered Age Estimation**: K-Nearest Neighbors (KNN) model trained on morphological features
+- **🎯 Educational Game Mode**: Test your skills against the AI and discover the real age
+- **📊 Comparison Dashboard**: See how your predictions compare with AI results
+- **📚 Scientific Content**: Learn about otoliths, plaice biology, and age determination importance
+- **🎨 Modern Responsive Design**: Built with bslib for a sleek, mobile-friendly interface
 
-## 🛠️ Installation & Launch
+---
 
-### Requirements
+## 🛠️ Installation & Setup
 
-Make sure you have **R (>= 4.x)** installed with the following packages:
+### Prerequisites
+
+Ensure you have **R (≥ 4.0)** installed on your system. You can download it from [CRAN](https://cran.r-project.org/).
+
+### Required R Packages
+
+Install the necessary packages by running:
 
 ```r
-install.packages(c("shiny", "bslib", "shinyjs", "magick", "FNN", "DT"))
+install.packages(c(
+  "shiny", 
+  "bslib", 
+  "shinyjs", 
+  "magick", 
+  "FNN", 
+  "DT"
+))
 ```
 
 ### Data Requirements
 
-The application requires:
-- `cleandata/model_age.RData` – Pre-trained model data and training set
-- `data/img_app/` – Directory containing otolith images (TIF, PNG, JPG formats)
-- `www/` – Directory with logos and partner images
+The application requires the following data structure:
 
-### Run the App
+- `cleandata/model_age.RData` — Pre-trained model data and training set
+- `data/img_app/` — Directory containing otolith images (TIF, PNG, JPG formats)
+- `www/` — Directory with logos and partner images
 
-1. Clone this repository or place all files in a single folder:
+### Clone the Repository
 
-```
-/OTOmatAGE
-  ├── app.R
-  ├── cleandata/
-  │   └── model_age.RData
-  ├── data/
-  │   └── img_app/
-  │       └── [otolith images]
-  └── www/
-      ├── logo/
-      │   ├── ifremer.png
-      │   ├── ulco.png
-      │   └── lisic.png
-      ├── img/
-      │   ├── plie.png
-      │   └── otolith_plie.png
-      └── partenaires/
-          ├── par_off_1.png to par_off_7.png
-          └── proj_1.png to proj_5.png
+```bash
+git clone https://github.com/AndrialovanirinaN/OTOmatAGE.git
+cd OTOmatAGE
 ```
 
-2. From R or RStudio, run:
+### Project Structure
+
+```
+OTOmatAGE/
+│
+├── app.R                    # Main application file
+│
+├── cleandata/
+│   └── model_age.RData      # Pre-trained model and training data
+│
+├── data/
+│   └── img_app/             # Otolith image database
+│       └── [otolith images] # TIF, PNG, JPG formats
+│
+└── www/
+    ├── logo/                # Partner logos
+    │   ├── ifremer.png
+    │   ├── ulco.png
+    │   └── lisic.png
+    ├── img/                 # Educational images
+    │   ├── plie.png
+    │   └── otolith_plie.png
+    └── partenaires/         # Partner and project images
+        ├── par_off_1.png to par_off_7.png
+        └── proj_1.png to proj_5.png
+```
+
+### Run the Application
+
+Launch the app from R or RStudio:
 
 ```r
 shiny::runApp("app.R")
 ```
 
-## 📖 How It Works
+The application will open in your default web browser.
 
-1. **Load an otolith image** – The app randomly selects an otolith from the database
-2. **Make your prediction** – Estimate the age (0-7+ years) based on what you see
-3. **Compare results** – See how your estimate compares to the AI prediction and the real age
-4. **Learn and repeat** – Load another otolith to continue practicing
+---
 
-The AI uses a **K-Nearest Neighbors (k=7)** algorithm trained on morphological features extracted from otolith images to predict fish age.
+## 🎮 How to Use
 
-## 🔬 Why It Matters
+1. **📸 Load an Otolith Image**: The app randomly selects an otolith from the database
+2. **🤔 Make Your Prediction**: Estimate the age (0-7+ years) based on the visible growth rings
+3. **🤖 Get AI Prediction**: Let the machine learning model analyze the otolith
+4. **📊 Compare Results**: See how your estimate compares to the AI prediction and the real age
+5. **🔄 Practice More**: Load another otolith to continue learning and improving
+
+### Understanding the Results
+
+- **Your Prediction**: Your visual estimate based on ring counting
+- **AI Prediction**: K-Nearest Neighbors model prediction (k=7)
+- **True Age**: The actual age determined by expert readers
+- **Accuracy Score**: How close your prediction was to reality
+
+---
+
+## 🤖 Machine Learning Model
+
+The application uses a **K-Nearest Neighbors (k=7)** algorithm trained on morphological features extracted from otolith images.
+
+### Model Details
+
+- **Algorithm**: K-Nearest Neighbors (KNN)
+- **K Value**: 7 neighbors
+- **Features**: Morphological characteristics from otolith images
+- **Age Range**: 0 to 7+ years
+- **Training Data**: Expert-validated age readings from plaice otoliths
+
+### Configuration
+
+- **Maximum Upload Size**: 10MB (configurable via `options(shiny.maxRequestSize)`)
+- **Supported Image Formats**: TIF, TIFF, PNG, JPG, JPEG
+- **Image Processing**: magick package for display and manipulation
+- **Prediction Engine**: FNN package for KNN implementation
+
+---
+
+## 🔬 Why Fish Age Matters
 
 Accurate age determination helps researchers:
 
-- 📊 Monitor population growth and structure
-- 🌡️ Understand climate impacts on marine ecosystems
-- 🛡️ Protect marine resources for future generations
-- 📈 Support sustainable fisheries management
+- **📊 Monitor Population Dynamics**: Track growth rates and population structure
+- **🌡️ Assess Climate Impacts**: Understand how environmental changes affect marine ecosystems
+- **🎣 Support Sustainable Fisheries**: Inform management decisions and quotas
+- **🛡️ Protect Marine Resources**: Ensure long-term sustainability for future generations
+- **📈 Predict Stock Recruitment**: Model future population trends
 
-## 📂 File Structure
+---
 
-- **app.R** – Main application file containing UI and server logic
-- **cleandata/model_age.RData** – Training data and model features
-- **data/img_app/** – Otolith image database
-- **www/** – Static resources (logos, images)
-- **README.md** – This documentation
-
-## ⚙️ Configuration
-
-The app includes several important configurations:
-
-- **Maximum upload size:** 10MB (configurable via `options(shiny.maxRequestSize)`)
-- **Image formats supported:** TIF, TIFF, PNG, JPG, JPEG
-- **Model:** K-Nearest Neighbors with k=7
-- **Age range:** 0 to 7+ years
-
-## 🎓 Educational Use
+## 🎓 Educational Use Cases
 
 **OTOmatAGE** is designed for:
 
-- Educational demonstrations in marine biology
-- Public outreach and science communication
-- Training new age readers in fisheries research
-- Interactive museum or aquarium exhibits
+- 🏫 **Educational Demonstrations**: Marine biology and ecology courses
+- 🌍 **Public Outreach**: Science communication and citizen engagement
+- 🔬 **Training Programs**: Preparing new age readers in fisheries research
+- 🏛️ **Interactive Exhibits**: Museum and aquarium installations
+- 👨‍🎓 **Student Projects**: Hands-on learning about marine science and AI
 
-**Note:** This tool is for educational purposes only and should not replace expert validation in scientific studies.
+> **⚠️ Important Note**: This tool is for educational purposes only and should not replace expert validation in scientific studies or fisheries management decisions.
 
-## 💡 Technical Details
+---
 
-The application uses:
+## 💡 Technical Implementation
 
-- **Image processing:** magick package for otolith image display
-- **Machine learning:** FNN package for K-Nearest Neighbors prediction
-- **UI framework:** bslib with Bootstrap theming
-- **Reactivity:** Shiny reactive values for dynamic updates
+The application leverages:
+
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| **Image Processing** | magick package | High-quality otolith image display |
+| **Machine Learning** | FNN package | K-Nearest Neighbors prediction |
+| **UI Framework** | bslib | Modern Bootstrap theming |
+| **Reactivity** | Shiny reactive values | Dynamic user interaction |
+| **Data Tables** | DT package | Interactive result displays |
+
+---
 
 ## 👥 Partners & Credits
 
-This project is supported by:
+This project is a collaborative effort supported by:
 
-- **Ifremer** – Unité Halieutique Manche-Mer du Nord  
-  Laboratoire Ressources Halieutiques – Pôle Sclérochronologie  
-  [https://manchemerdunord.ifremer.fr/](https://manchemerdunord.ifremer.fr/)
+### Research Institutions
 
-- **ULCO** – Université du Littoral Côte d'Opale  
-  Laboratoire d'Informatique Signal & Image de la Côte d'Opale (LISIC)  
-  [https://www.univ-littoral.fr/](https://www.univ-littoral.fr/)  
-  [https://www-lisic.univ-littoral.fr/](https://www-lisic.univ-littoral.fr/)
+**ULCO** – Université du Littoral Côte d'Opale  
+Laboratoire d'Informatique Signal & Image de la Côte d'Opale (LISIC)  
+🔗 [https://www.univ-littoral.fr/](https://www.univ-littoral.fr/)  
+🔗 [https://www-lisic.univ-littoral.fr/](https://www-lisic.univ-littoral.fr/)
 
-**Funding:**
+**Ifremer** – Institut Français de Recherche pour l'Exploitation de la Mer  
+Unité Halieutique Manche-Mer du Nord  
+Laboratoire Ressources Halieutiques – Pôle Sclérochronologie  
+🔗 [https://manchemerdunord.ifremer.fr/](https://manchemerdunord.ifremer.fr/)
 
-- **CPER CornelIA (2021-2027)** – Co-construction responsable et durable d'une Intelligence Artificielle
-- **IFSEA graduate school** – ANR-21-EXES-0011 (Agence Nationale de la Recherche)
+### Funding
 
-## 📜 License
+This project is funded by:
 
-**MIT License**
+- **CPER CornelIA (2021-2027)**: Co-construction responsable et durable d'une Intelligence Artificielle
+- **IFSEA Graduate School**: ANR-21-EXES-0011 (Agence Nationale de la Recherche)
+
+---
+
+## 📄 License
+
+This project is released under the **MIT License**.
+
+```
+MIT License
 
 Copyright © 2025 Nicolas Andrialovanirina, Emilie Poisson Caillault, Kélig Mahé
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+---
 
 ## ⚠️ Disclaimer
 
-This application provides age estimations for educational purposes only. The AI predictions should not be used as the sole method for age determination in scientific research. Expert validation is always recommended for research and fisheries management applications.
+This application provides age estimations for **educational purposes only**. The AI predictions should not be used as the sole method for age determination in scientific research. 
 
-## 💬 Contact
+**Expert validation is always recommended for:**
+- Scientific publications
+- Fisheries stock assessments
+- Management decisions
+- Regulatory compliance
 
-For questions, suggestions, or collaboration:
+The model's accuracy depends on image quality and similarity to the training dataset.
 
-- **Email:** nicolasandrialova@gmail.com
-- **GitHub:** [github.com/AndrialovanirinaN](https://github.com/AndrialovanirinaN)
+---
+
+## 📬 Contact & Contributions
+
+**Project Team:**
+- Nicolas Andrialovanirina
+- Emilie Poisson Caillault
+- Kélig Mahé
+
+### Get in Touch
+
+- 📧 Email: [nicolasandrialova@gmail.com](mailto:nicolasandrialova@gmail.com)
+- 🐙 GitHub: [@AndrialovanirinaN](https://github.com/AndrialovanirinaN)
